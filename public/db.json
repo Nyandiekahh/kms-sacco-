@@ -1,0 +1,21 @@
+{
+    "users": [
+      {
+        "email": "davidgitonga083@gmail.com",
+        "password": "hashed_password1"
+      },
+      {
+        "email": "einsteinmokua100@gmail.com",
+        "password": "hashed_password2"
+      },
+      {
+        "email": "oscarkipkorir23@gmail.com",
+        "password": "hashed_password3"
+      },
+      {
+        "email": "polycarpkesar@gmail.com",
+        "password": "hashed_password4"
+      }
+    ]
+  }
+  
