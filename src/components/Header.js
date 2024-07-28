@@ -36,7 +36,7 @@ const Header = () => {
           <NavLink to="/news">News</NavLink>
           <NavLink to="/contact">Contact</NavLink>
           <NavLink to="/login">Login</NavLink>
-          <NavLink to="/terms">Terms</NavLink>
+          {/* <NavLink to="/terms">Terms</NavLink> */}
         </div>
       </Nav>
     </HeaderContainer>

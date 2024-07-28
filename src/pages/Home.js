@@ -1,5 +1,7 @@
+// src/components/Home.js
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 import einsteinPhoto from '../assets/images/person_2.jpg';
 import oscarPhoto from '../assets/images/person_4.jpg';
 
@@ -9,6 +11,20 @@ const HomeContainer = styled.div`
   padding: 2rem;
   font-family: 'Arial, sans-serif';
   color: #333;
+  position: relative; // Needed for positioning the background letters
+`;
+
+const BackgroundText = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200px; // Adjust height as needed
+  text-align: center;
+  font-size: 100px; // Adjust size as needed
+  font-weight: bold;
+  color: rgba(0, 0, 0, 0.1); // Light gray, adjust opacity as needed
+  z-index: -1; // Ensure it stays behind other content
 `;
 
 const Hero = styled.div`
@@ -31,7 +47,7 @@ const CallToAction = styled.div`
   gap: 1rem;
 `;
 
-const Button = styled.a`
+const Button = styled(Link)`
   padding: 0.8rem 2rem;
   background-color: #00796b;
   color: #ffffff;
@@ -115,15 +131,16 @@ const Contact = styled.div`
 const Home = () => {
   return (
     <HomeContainer>
+      <BackgroundText>KMS</BackgroundText>
       <Hero>
         <HeroText>
           <h1>Welcome to Kufanyana Mbaya Sacco</h1>
           <p>Invest in Your Future, Invest in Your Community: Discover the Difference.</p>
           <CallToAction>
-            <Button href="/join-us">Join Us Now</Button>
-            <Button href="/apply-loan">Apply for a Loan</Button>
-            <Button href="#milestones">Learn More</Button>
-            <Button href="/login">Login</Button> {/* Added Login button */}
+            <Button to="/join-us">Join Us Now</Button>
+            <Button to="/apply-loan">Apply for a Loan</Button>
+            <Button to="#milestones">Learn More</Button>
+            <Button to="/login">Login</Button>
           </CallToAction>
         </HeroText>
       </Hero>
@@ -145,7 +162,7 @@ const Home = () => {
           <MemberCard>
             <MemberImage src={oscarPhoto} alt="Oscar Kipkorir" />
             <MemberName>Oscar Kipkorir</MemberName>
-            <Text>Treasurer</Text>
+            <Text>Board Member</Text>
           </MemberCard>
         </ImageGallery>
       </Section>
@@ -182,7 +199,7 @@ const Home = () => {
 
       <Section>
         <Title>Upcoming Events & Activities</Title>
-        <Text>Don't miss our financial literacy workshop next month. Check the calendar for more events.</Text>
+        <Text>Don't miss our Annual General Meeting. Check the calendar for more events.</Text>
       </Section>
 
       <Contact>

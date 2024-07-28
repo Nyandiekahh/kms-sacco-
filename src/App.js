@@ -11,8 +11,9 @@ import Contact from './pages/Contact';
 import TermsAndConditions from './pages/TermsAndConditions';
 import MemberDashboard from './components/MemberDashboard';
 import OurStory from './pages/OurStory';
-import Terms from './pages/Terms';
-import Login from './pages/Login'; // Import Login component
+import Login from './pages/Login';
+import LoanApplication from './components/LoanApplication';
+import FinanceStatementList from './components/FinanceStatementList';
 
 function App() {
   return (
@@ -26,10 +27,11 @@ function App() {
         <Route path="/savings-and-loans" element={<SavingsAndLoans />} />
         <Route path="/news" element={<News />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/terms" element={<TermsAndConditions />} />
+        <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
         <Route path="/dashboard" element={<MemberDashboard />} />
-        <Route path="/terms-and-conditions" element={<Terms />} />
-        <Route path="/login" element={<Login />} /> {/* Added Login route */}
+        <Route path="/login" element={<Login />} />
+        <Route path="/apply-loan" element={<LoanApplication />} />
+        <Route path="/finance-statements" element={<FinanceStatementList />} />
       </Routes>
       <Footer />
     </Router>

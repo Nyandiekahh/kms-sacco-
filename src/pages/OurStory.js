@@ -1,7 +1,6 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
 
-// Keyframe animation for fade-in effect
 const fadeIn = keyframes`
   from {
     opacity: 0;
@@ -13,7 +12,6 @@ const fadeIn = keyframes`
   }
 `;
 
-// Container for the story
 const StoryContainer = styled.div`
   max-width: 800px;
   margin: 0 auto;
@@ -23,7 +21,6 @@ const StoryContainer = styled.div`
   color: #333;
 `;
 
-// Title styling
 const Title = styled.h1`
   font-size: 2.5rem;
   color: #0056b3;
@@ -32,7 +29,6 @@ const Title = styled.h1`
   animation: ${fadeIn} 1s ease-out;
 `;
 
-// Paragraph styling
 const Paragraph = styled.p`
   font-size: 1.1rem;
   margin-bottom: 1.5rem;
@@ -42,13 +38,6 @@ const Paragraph = styled.p`
   animation-delay: ${props => props.delay}ms;
 `;
 
-// Highlight styling
-const Highlight = styled.span`
-  color: #0056b3;
-  font-weight: bold;
-`;
-
-// The OurStory component
 const OurStory = () => {
   const paragraphs = [
     `Kufanyana Mbaya Sacco Limited, a testament to collaboration and shared vision, was founded on December 19, 2022, by <span class="highlight">Einstein Mokua</span>. The concept was born from a desire to create a financial support system among friends and quickly gained momentum. Einstein shared his vision with his former schoolmates, <span class="highlight">Polycarp Kesa</span> and <span class="highlight">David Gitonga</span>, who embraced the idea wholeheartedly. Together, they laid the foundation of the sacco, becoming its inaugural board members.`,

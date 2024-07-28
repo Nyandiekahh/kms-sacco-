@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useLocation, Link } from 'react-router-dom';
 
 const DashboardContainer = styled.div`
   max-width: 1200px;
@@ -48,7 +49,7 @@ const QuickActions = styled.div`
   margin-top: 1rem;
 `;
 
-const Button = styled.a`
+const Button = styled(Link)`
   padding: 0.8rem 1.5rem;
   background-color: #00796b;
   color: #ffffff;
@@ -62,20 +63,22 @@ const Button = styled.a`
   }
 `;
 
-const MemberDashboard = ({ memberData }) => {
+const MemberDashboard = ({ memberData = {} }) => {
+  const location = useLocation();
+  const username = location.state?.username || 'Member';
+
   const {
-    name,
-    savingsBalance,
-    totalLoans,
-    availableCredit,
-    recentTransactions,
-    currentLoan,
-    savingsGoals
+    savingsBalance = 0,
+    totalLoans = 0,
+    availableCredit = 0,
+    recentTransactions = [],
+    currentLoan = null,
+    savingsGoals = []
   } = memberData;
 
   return (
     <DashboardContainer>
-      <WelcomeMessage>Welcome back, {name}!</WelcomeMessage>
+      <WelcomeMessage>Welcome back, {username}!</WelcomeMessage>
 
       <Section>
         <Title>Account Summary</Title>
@@ -87,17 +90,22 @@ const MemberDashboard = ({ memberData }) => {
       <Section>
         <Title>Quick Actions</Title>
         <QuickActions>
-          <Button href="/apply-loan">Apply for a New Loan</Button>
-          <Button href="/deposit">Make a Deposit</Button>
-          <Button href="/transfer">Transfer Funds</Button>
+          <Button to="/apply-loan">Apply for a New Loan</Button>
+          <Button to="/deposit">Make a Deposit</Button>
+          <Button to="/transfer">Transfer Funds</Button>
+          <Button to="/finance-statements">View Finance Statement</Button>
         </QuickActions>
       </Section>
 
       <Section>
         <Title>Recent Transactions</Title>
-        {recentTransactions.map((transaction, index) => (
-          <Text key={index}>{transaction.date}: {transaction.description} - Ksh {transaction.amount}</Text>
-        ))}
+        {recentTransactions.length > 0 ? (
+          recentTransactions.map((transaction, index) => (
+            <Text key={index}>{transaction.date}: {transaction.description} - Ksh {transaction.amount}</Text>
+          ))
+        ) : (
+          <Text>No recent transactions</Text>
+        )}
       </Section>
 
       <Section>
@@ -119,16 +127,20 @@ const MemberDashboard = ({ memberData }) => {
 
       <Section>
         <Title>Savings Goals</Title>
-        {savingsGoals.map((goal, index) => (
-          <div key={index}>
-            <Text>{goal.name}</Text>
-            <Progress>
-              <ProgressBar progress={goal.progress}>
-                {goal.progress}%
-              </ProgressBar>
-            </Progress>
-          </div>
-        ))}
+        {savingsGoals.length > 0 ? (
+          savingsGoals.map((goal, index) => (
+            <div key={index}>
+              <Text>{goal.name}</Text>
+              <Progress>
+                <ProgressBar progress={goal.progress}>
+                  {goal.progress}%
+                </ProgressBar>
+              </Progress>
+            </div>
+          ))
+        ) : (
+          <Text>No savings goals</Text>
+        )}
       </Section>
     </DashboardContainer>
   );

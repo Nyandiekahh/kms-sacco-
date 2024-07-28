@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
 
 const LoginContainer = styled.div`
   display: flex;
@@ -25,6 +26,25 @@ const Input = styled.input`
   margin-bottom: 1rem;
   border: 1px solid #ccc;
   border-radius: 5px;
+`;
+
+const InputContainer = styled.div`
+  position: relative;
+  margin-bottom: 1rem;
+`;
+
+const PasswordInput = styled(Input)`
+  padding-right: 2.5rem;
+`;
+
+const TogglePasswordButton = styled.button`
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
 `;
 
 const Button = styled.button`
@@ -52,23 +72,40 @@ const ErrorMessage = styled.p`
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleLogin = (event) => {
     event.preventDefault();
-    const users = JSON.parse(localStorage.getItem('users'));
-    const hashedPasswords = {
-      'davidgitonga083@gmail.com': process.env.REACT_APP_PASSWORD_HASH_1,
-      'einsteinmokua100@gmail.com': process.env.REACT_APP_PASSWORD_HASH_2,
-      'oscarkipkorir23@gmail.com': process.env.REACT_APP_PASSWORD_HASH_3,
-      'polycarpkesar@gmail.com': process.env.REACT_APP_PASSWORD_HASH_4
+
+    const userDetails = {
+      'einsteinmokua100@gmail.com': {
+        password: process.env.REACT_APP_PASSWORD_HASH_2,
+        name: 'Einstein Mokua'
+      },
+      'davidgitonga083@gmail.com': {
+        password: process.env.REACT_APP_PASSWORD_HASH_1,
+        name: 'David Gitonga'
+      },
+      'oscarkipkorir23@gmail.com': {
+        password: process.env.REACT_APP_PASSWORD_HASH_3,
+        name: 'Oscar Kipkorir'
+      },
+      'polycarpkesar@gmail.com': {
+        password: process.env.REACT_APP_PASSWORD_HASH_4,
+        name: 'Polycarp Kesa'
+      }
     };
 
-    const hashedPassword = hashedPasswords[email];
+    console.log('Email:', email);
+    console.log('Password:', password);
+    console.log('User Details:', userDetails[email]);
 
-    if (hashedPassword && hashedPassword === password) {
-      navigate('/dashboard');
+    const userInfo = userDetails[email];
+
+    if (userInfo && userInfo.password === password) {
+      navigate('/dashboard', { state: { username: userInfo.name } });
     } else {
       setError('Invalid email or password');
     }
@@ -86,13 +123,21 @@ const Login = () => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-          <Input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+          <InputContainer>
+            <PasswordInput
+              type={showPassword ? 'text' : 'password'}
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <TogglePasswordButton
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </TogglePasswordButton>
+          </InputContainer>
           <Button type="submit">Login</Button>
           {error && <ErrorMessage>{error}</ErrorMessage>}
         </form>
